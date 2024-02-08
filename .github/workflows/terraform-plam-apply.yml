@@ -43,7 +43,7 @@ jobs:
       run: terraform plan -input=false -out=tfplan
 
     - name: Save Terraform Plan
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: tfplan
         path: tfplan
@@ -51,7 +51,7 @@ jobs:
   terraform-apply:
     name: 'Terraform Apply'
     runs-on: ubuntu-latest
-    needs: terraform-plan
+    needs: [ terraform-plan ]
   
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -67,7 +67,7 @@ jobs:
       run: terraform init
 
     - name: Download Terraform Plan
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: tfplan
         path: .
